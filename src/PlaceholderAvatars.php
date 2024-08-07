@@ -2,8 +2,9 @@
 
 namespace GridPrinciples\PlaceholderAvatars;
 
-use GridPrinciples\PlaceholderAvatars\Requests\GenerateAvatarRequest;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
+use GridPrinciples\PlaceholderAvatars\Requests\GenerateAvatarRequest;
 
 class PlaceholderAvatars
 {
@@ -24,7 +25,19 @@ class PlaceholderAvatars
 
     protected function serveSvg(string $component, array $params)
     {
-        $response = response((new $component(...$params))->render())
+        ksort($params);
+
+        if($cacheDriver = config('placeholder-avatars.cache')) {
+            $cacheKey = 'placeholder-avatar.' . md5(serialize($params));
+            $cacheTTL = now()->addWeek();
+
+            $renderedAvatar = Cache::driver($cacheDriver === true ? null : $cacheDriver)
+                ->remember($cacheKey, $cacheTTL, fn () => $this->renderAvatar($component, $params));
+        } else {
+            $renderedAvatar = $this->renderAvatar($component, $params);
+        }
+
+        $response = response($renderedAvatar)
             ->header('Content-Type', 'image/svg+xml');
 
         if (filled($params['name'] ?? null)) {
@@ -32,5 +45,10 @@ class PlaceholderAvatars
         }
 
         return $response;
+    }
+
+    protected function renderAvatar(string $component, array $params)
+    {
+        return (new $component(...$params))->render()->render();
     }
 }

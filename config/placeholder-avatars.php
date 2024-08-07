@@ -1,6 +1,5 @@
 <?php
 
-// config for GridPrinciples/PlaceholderAvatars
 return [
-
+    'cache' => true,
 ];
