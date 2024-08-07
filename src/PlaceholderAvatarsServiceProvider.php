@@ -20,7 +20,7 @@ class PlaceholderAvatarsServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'placeholder-avatar');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'placeholder-avatar');
 
         Blade::componentNamespace('GridPrinciples\\PlaceholderAvatars\\View\\Components', 'placeholder-avatar');
     }

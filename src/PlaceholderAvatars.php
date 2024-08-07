@@ -2,9 +2,8 @@
 
 namespace GridPrinciples\PlaceholderAvatars;
 
-use Illuminate\Support\Facades\Route;
-use GridPrinciples\PlaceholderAvatars\Http\Controllers\AvatarController;
 use GridPrinciples\PlaceholderAvatars\Requests\GenerateAvatarRequest;
+use Illuminate\Support\Facades\Route;
 
 class PlaceholderAvatars
 {
@@ -14,8 +13,7 @@ class PlaceholderAvatars
         ?int $size = null,
         ?bool $square = null,
         ?array $colors = null,
-    ): \Illuminate\Routing\Route
-    {
+    ): \Illuminate\Routing\Route {
         $params = array_filter(compact('name', 'size', 'square', 'colors'), 'filled');
 
         return Route::get($uri, fn (GenerateAvatarRequest $request) => $this->serveSvg(View\Components\Beam::class, [

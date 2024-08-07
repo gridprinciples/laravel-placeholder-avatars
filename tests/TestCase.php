@@ -2,9 +2,9 @@
 
 namespace GridPrinciples\PlaceholderAvatars\Tests;
 
-use Orchestra\Testbench\TestCase as Orchestra;
 use GridPrinciples\PlaceholderAvatars\Facades\PlaceholderAvatars;
 use GridPrinciples\PlaceholderAvatars\PlaceholderAvatarsServiceProvider;
+use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {

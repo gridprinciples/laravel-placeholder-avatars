@@ -16,6 +16,7 @@ trait BoringAvatarMath
             $hash = (($hash << 5) - $hash) + $character;
             $hash = $hash & $hash; // Convert to 32bit integer
         }
+
         return abs($hash);
     }
 
@@ -31,7 +32,7 @@ trait BoringAvatarMath
 
     protected function getBoolean($number, $ntn): bool
     {
-        return !($this->getDigit($number, $ntn) % 2);
+        return ! ($this->getDigit($number, $ntn) % 2);
     }
 
     protected function getAngle($x, $y): float
