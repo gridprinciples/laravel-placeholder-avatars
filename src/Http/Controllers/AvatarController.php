@@ -2,8 +2,8 @@
 
 namespace GridPrinciples\PlaceholderAvatars\Http\Controllers;
 
-use GridPrinciples\PlaceholderAvatars\View\Components\Beam;
 use GridPrinciples\PlaceholderAvatars\Requests\GenerateAvatarRequest;
+use GridPrinciples\PlaceholderAvatars\View\Components\Beam;
 
 class AvatarController
 {
@@ -19,7 +19,7 @@ class AvatarController
 
         $onlySizeWasPassed = count($params) === 1 && array_key_exists('size', $params);
 
-        if (!empty($params) && !$onlySizeWasPassed) {
+        if (! empty($params) && ! $onlySizeWasPassed) {
             $response->header('Cache-Control', 'public, max-age=604800, immutable');
         }
 

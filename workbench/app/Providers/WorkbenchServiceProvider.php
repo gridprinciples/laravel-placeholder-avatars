@@ -2,10 +2,10 @@
 
 namespace Workbench\App\Providers;
 
+use GridPrinciples\PlaceholderAvatars\Facades\PlaceholderAvatars;
+use GridPrinciples\PlaceholderAvatars\View\Components\Beam;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use GridPrinciples\PlaceholderAvatars\View\Components\Beam;
-use GridPrinciples\PlaceholderAvatars\Facades\PlaceholderAvatars;
 
 class WorkbenchServiceProvider extends ServiceProvider
 {
@@ -24,7 +24,7 @@ class WorkbenchServiceProvider extends ServiceProvider
     {
         Route::view('/', 'test-avatars');
 
-        PlaceholderAvatars::route('face.svg', 
+        PlaceholderAvatars::route('face.svg',
             // type: 'beam',
             // colors: ['#440000', '#110000', '#CC0000'],
             // name: 'wut',

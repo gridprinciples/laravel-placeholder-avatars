@@ -2,14 +2,14 @@
 
 namespace GridPrinciples\PlaceholderAvatars\View\Components;
 
+use GridPrinciples\PlaceholderAvatars\Concerns\BoringAvatarMath;
 use Illuminate\Support\Str;
 use Illuminate\View\Component;
-use GridPrinciples\PlaceholderAvatars\Concerns\BoringAvatarMath;
 
 class Beam extends Component
 {
     use BoringAvatarMath;
-    
+
     public string $maskID;
 
     public int $baseSize = 36;
@@ -20,9 +20,9 @@ class Beam extends Component
         public int $size = 36,
         public bool $square = false,
     ) {
-        $this->maskID = 'mask-' . uniqid();
+        $this->maskID = 'mask-'.uniqid();
 
-        if (!$name) {
+        if (! $name) {
             $this->name = Str::random(8);
         }
     }
