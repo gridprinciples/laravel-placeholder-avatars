@@ -1,0 +1,73 @@
+{
+    "name": "gridprinciples/laravel-placeholder-avatars",
+    "description": "Serve SVG avatars from your Laravel application",
+    "keywords": [
+        "Grid Principles",
+        "laravel",
+        "laravel-placeholder-avatars"
+    ],
+    "homepage": "https://github.com/gridprinciples/laravel-placeholder-avatars",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Greg Brock",
+            "email": "greg@gridprinciples.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "illuminate/contracts": "^10.0||^11.0"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.14",
+        "nunomaduro/collision": "^8.1.1||^7.10.0",
+        "orchestra/testbench": "^9.0.0||^8.22.0",
+        "phpunit/phpunit": "^10.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "GridPrinciples\\PlaceholderAvatars\\": "src/",
+            "GridPrinciples\\PlaceholderAvatars\\Database\\Factories\\": "database/factories/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "GridPrinciples\\PlaceholderAvatars\\Tests\\": "tests/",
+            "Workbench\\App\\": "workbench/app/"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": "@composer run prepare",
+        "clear": "@php vendor/bin/testbench package:purge-laravel-placeholder-avatars --ansi",
+        "prepare": "@php vendor/bin/testbench package:discover --ansi",
+        "build": [
+            "@composer run prepare",
+            "@php vendor/bin/testbench workbench:build --ansi"
+        ],
+        "start": [
+            "Composer\\Config::disableProcessTimeout",
+            "@composer run build",
+            "@php vendor/bin/testbench serve"
+        ],
+        "analyse": "vendor/bin/phpstan analyse",
+        "test": "XDEBUG_MODE=coverage vendor/bin/phpunit --colors --testdox",
+        "test-coverage": "XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-html ./build/coverage",
+        "format": "vendor/bin/pint"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "GridPrinciples\\PlaceholderAvatars\\PlaceholderAvatarsServiceProvider"
+            ],
+            "aliases": {
+                "PlaceholderAvatars": "GridPrinciples\\PlaceholderAvatars\\Facades\\PlaceholderAvatars"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
