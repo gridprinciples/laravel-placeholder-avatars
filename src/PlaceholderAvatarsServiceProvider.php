@@ -13,7 +13,7 @@ class PlaceholderAvatarsServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/placeholder-avatars.php',
+            __DIR__.'/../config/placeholder-avatars.php',
             'placeholder-avatars'
         );
     }
@@ -24,7 +24,7 @@ class PlaceholderAvatarsServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->publishes([
-            __DIR__ . '/../config/placeholder-avatars.php' => config_path('placeholder-avatars.php'),
+            __DIR__.'/../config/placeholder-avatars.php' => config_path('placeholder-avatars.php'),
         ]);
 
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'placeholder-avatar');

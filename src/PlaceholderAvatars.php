@@ -2,9 +2,9 @@
 
 namespace GridPrinciples\PlaceholderAvatars;
 
+use GridPrinciples\PlaceholderAvatars\Requests\GenerateAvatarRequest;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
-use GridPrinciples\PlaceholderAvatars\Requests\GenerateAvatarRequest;
 
 class PlaceholderAvatars
 {
@@ -27,8 +27,8 @@ class PlaceholderAvatars
     {
         ksort($params);
 
-        if($cacheDriver = config('placeholder-avatars.cache')) {
-            $cacheKey = 'placeholder-avatar.' . md5(serialize($params));
+        if ($cacheDriver = config('placeholder-avatars.cache')) {
+            $cacheKey = 'placeholder-avatar.'.md5(serialize($params));
             $cacheTTL = now()->addWeek();
 
             $renderedAvatar = Cache::driver($cacheDriver === true ? null : $cacheDriver)
