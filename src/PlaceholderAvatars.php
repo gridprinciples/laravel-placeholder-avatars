@@ -5,19 +5,27 @@ namespace GridPrinciples\PlaceholderAvatars;
 use GridPrinciples\PlaceholderAvatars\Requests\GenerateAvatarRequest;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 
 class PlaceholderAvatars
 {
     public function route(
         string $uri,
+        ?string $type = 'beam',
         ?string $name = null,
         ?int $size = null,
         ?bool $square = null,
         ?array $colors = null,
     ): \Illuminate\Routing\Route {
-        $params = array_filter(compact('name', 'size', 'square', 'colors'), 'filled');
+        $params = array_filter(compact('name', 'type', 'size', 'square', 'colors'), 'filled');
 
-        return Route::get($uri, fn (GenerateAvatarRequest $request) => $this->serveSvg(View\Components\Beam::class, [
+        $viewComponentClass = 'GridPrinciples\\PlaceholderAvatars\\View\\Components\\'.Str::studly($type);
+
+        if (! class_exists($viewComponentClass)) {
+            throw new \InvalidArgumentException("Unknown avatar type: {$type}");
+        }
+
+        return Route::get($uri, fn (GenerateAvatarRequest $request) => $this->serveSvg($viewComponentClass, [
             ...$request->validated(),
             ...$params,
         ]));
@@ -49,6 +57,8 @@ class PlaceholderAvatars
 
     protected function renderAvatar(string $component, array $params)
     {
+        unset($params['type']);
+
         return (new $component(...$params))->render()->render();
     }
 }

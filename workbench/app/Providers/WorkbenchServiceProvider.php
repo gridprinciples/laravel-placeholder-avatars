@@ -22,7 +22,9 @@ class WorkbenchServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Route::view('/', 'test-avatars');
+        Route::view('/', 'test-beam');
+        Route::view('/marble', 'test-marble');
+        Route::view('/pixel', 'test-pixel');
 
         PlaceholderAvatars::route('face.svg',
             // type: 'beam',
@@ -30,5 +32,20 @@ class WorkbenchServiceProvider extends ServiceProvider
             // name: 'wut',
             // square: false,
         )->name('face');
+
+        PlaceholderAvatars::route('marble.svg',
+            type: 'marble',
+            // colors: ["#8e3f65", "#73738d", "#72a5ae", "#98e9d0", "#d8ffcc"],
+            // name: 'wut',
+            // square: false,
+        )->name('marble');
+
+        PlaceholderAvatars::route('pixel.svg',
+            type: 'pixel',
+            // colors: ["#8e3f65", "#73738d", "#72a5ae", "#98e9d0", "#d8ffcc"],
+            // name: 'wut',
+            // square: false,
+        )->name('pixel');
+
     }
 }

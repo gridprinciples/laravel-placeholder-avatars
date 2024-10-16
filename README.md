@@ -5,7 +5,7 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/gridprinciples/laravel-placeholder-avatars/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/gridprinciples/laravel-placeholder-avatars/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/gridprinciples/laravel-placeholder-avatars.svg?style=flat-square)](https://packagist.org/packages/gridprinciples/laravel-placeholder-avatars)
 
-This package gets you the BoringAvatar's Beam faces rendered in your Laravel application as SVGs.  They can be rendered via configurable URL or by direct usage of a Blade component.
+This package gets you several BoringAvatar designs rendered in your Laravel application as SVGs.  They can be rendered via configurable URL or by direct usage of a Blade component.
 
 ## Installation
 
@@ -25,13 +25,13 @@ If you plan on rendering via URL, you must register it in your routes file:
 // routes/web.php
 use GridPrinciples\PlaceholderAvatars\Facades\PlaceholderAvatars;
 
-PlaceholderAvatars::route('face.svg');
+PlaceholderAvatars::route('avatar.svg', type: 'beam');
 ```
 
 By default, you can use query parameters to set the generation options.  For example:
 
 ```
-/face.svg?name=JohnDoe&square=1
+/avatar.svg?name=JohnDoe&square=1
 ```
 
 ...would generate the same face every time ("JohnDoe" as the seed) in a square format.
@@ -42,17 +42,34 @@ If you want to dictate which options are used in generation, you can supply thes
 // routes/web.php
 use GridPrinciples\PlaceholderAvatars\Facades\PlaceholderAvatars;
 
-PlaceholderAvatars::route('face.svg', 
+PlaceholderAvatars::route('face.svg',
+    // which design should render (optional; defaults to "beam")
+    type: 'marble',
+
     // enforce a red color scheme
     colors: ['#440000', '#110000', '#CC0000'],
 
-    // we are rendering an SVG so this doesn't matter much, but you can set the size
-    size: 256,
-
     // force a circular avatar, a square will never be produced even if requested
     square: false,
+
+    // we are rendering an SVG so this doesn't matter much, but you can set the size
+    size: 256,
 );
 ```
+
+### Via component
+You can also render the SVGs inline within any Blade component:
+
+```blade
+<x-placeholder-avatar::marble :name="$user->uuid" class="rounded-lg" square />
+```
+
+## Avatars
+The following types from [BoringAvatars](https://boringavatars.com/playground) are currently supported:
+
+- `beam`
+- `marble`
+- `pixel`
 
 ## Testing
 
