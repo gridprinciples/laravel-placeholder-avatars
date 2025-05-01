@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-placeholder-avatars` will be documented in this file.
 
+## Laravel 12 release - 2025-05-01
+
+Update the package for use in Laravel 12
+
 ## v0.2.0 - 2024-10-16
 
 **Full Changelog**: https://github.com/gridprinciples/laravel-placeholder-avatars/compare/v0.1.1...v0.2.0
