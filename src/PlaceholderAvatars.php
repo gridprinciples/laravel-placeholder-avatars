@@ -25,7 +25,9 @@ class PlaceholderAvatars
             throw new \InvalidArgumentException("Unknown avatar type: {$type}");
         }
 
-        return Route::get($uri, fn (GenerateAvatarRequest $request) => $this->serveSvg($viewComponentClass, [
+        // A static closure (resolving the instance at request time) keeps the
+        // route cacheable: Laravel 13 refuses to unserialize a bound $this.
+        return Route::get($uri, static fn (GenerateAvatarRequest $request) => app(self::class)->serveSvg($viewComponentClass, [
             ...$request->validated(),
             ...$params,
         ]));
